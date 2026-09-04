@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 15 Años - Paula Victorio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Playfair Display para títulos, Montserrat para lectura, Great Vibes para el nombre principal -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crema: '#FFF9F7',
+                        olivo: '#D9A6B0',
+                        oro: '#C9A24A',
+                        oscuro: '#5A4549'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        montserrat: ['"Montserrat"', 'sans-serif'],
+                        script: ['"Great Vibes"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FFF9F7; }
+        ::-webkit-scrollbar-thumb { background: #D9A6B0; border-radius: 4px; }
+        
+        body {
+            background-color: #FFF9F7;
+            color: #5A4549;
+            overflow-x: hidden;
+        }
+
+        /* El hero-bg tradicional falla en iOS debido a background-attachment: fixed. 
+           Usaremos un truco con un div absoluto o fixed dentro del header en lugar de esto. */
+
+        .glass-card {
+            background: rgba(255, 249, 247, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            box-shadow: 0 10px 30px rgba(90, 60, 60, 0.14), 0 1px 0 rgba(201, 162, 74, 0.18);
+        }
+
+        .gold-title {
+            background: linear-gradient(135deg, #C9A24A 0%, #D8BD73 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 8px rgba(80, 50, 50, 0.16);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #D9A6B0 0%, #B97887 100%);
+            color: #fff;
+            border: 1px solid rgba(255, 249, 247, 0.58);
+            box-shadow: 0 6px 20px rgba(90, 60, 60, 0.12), inset 0 1px 0 rgba(255, 249, 247, 0.28);
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(90, 60, 60, 0.16), inset 0 1px 0 rgba(255, 249, 247, 0.34);
+        }
+
+        .btn-olive {
+            background-color: #D9A6B0;
+            color: #FFF9F7;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(90, 60, 60, 0.12), inset 0 1px 0 rgba(255, 249, 247, 0.24);
+            border: 1px solid rgba(255, 249, 247, 0.46);
+        }
+        .btn-olive:hover {
+            background-color: #FFF9F7;
+            color: #B97887;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(90, 60, 60, 0.16);
+        }
+
+        .floating-music {
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(217, 166, 176, 0.55); }
+            70% { box-shadow: 0 0 0 15px rgba(217, 166, 176, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 166, 176, 0); }
+        }
+
+        /* Countdown numbers styling */
+        .countdown-number {
+            background: linear-gradient(135deg, #B97887 0%, #D9A6B0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 7px rgba(90, 60, 60, 0.14);
+        }
+
+        .welcome-label-contrast {
+            color: #8F5965;
+        }
+
+        .hero-label-contrast {
+            color: #7F4F5B;
+            text-shadow: 0 2px 6px rgba(70, 40, 45, 0.16);
+        }
+
+        .hero-date-contrast {
+            background: none;
+            -webkit-text-fill-color: #A77B2E;
+            color: #A77B2E;
+            text-shadow: 0 2px 6px rgba(70, 40, 45, 0.18);
+        }
+
+        .footer-name-contrast {
+            background: none;
+            -webkit-text-fill-color: #8F5965;
+            color: #8F5965;
+            text-shadow: 0 2px 7px rgba(70, 40, 45, 0.16);
+        }
+
+        .footer-message-contrast {
+            color: #F6D9B0;
+            opacity: 1;
+            text-shadow: 0 2px 6px rgba(70, 40, 45, 0.20);
+        }
+
+        .text-crema,
+        .text-oscuro,
+        .text-olivo {
+            text-shadow: 0 2px 8px rgba(80, 50, 50, 0.12);
+        }
+
+        .glass-card h2,
+        .glass-card h3,
+        .glass-card p,
+        .glass-card span,
+        .glass-card i,
+        .glass-card a {
+            text-shadow: 0 1px 5px rgba(80, 50, 50, 0.10);
+        }
+
+        #welcomeScreen {
+            box-shadow: inset 0 0 0 1px rgba(201, 162, 74, 0.12);
+        }
+
+        #welcomeScreen button,
+        #musicToggle {
+            border: 1px solid rgba(255, 249, 247, 0.52);
+        }
+
+        @media (max-width: 640px) {
+            .glass-card {
+                box-shadow: 0 8px 22px rgba(90, 60, 60, 0.12), 0 1px 0 rgba(201, 162, 74, 0.16);
+            }
+        }
+
+        /* Pantalla de Bienvenida (Sobre digital / Portada) */
+        #welcomeScreen {
+            position: fixed;
+            inset: 0;
+            background-color: #FFF9F7;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        
+        .welcome-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Evitar scroll antes de abrir */
+        .no-scroll {
+            overflow: hidden !important;
+        }
+    </style>
+</head>
+<body class="font-montserrat antialiased selection:bg-olivo selection:text-crema no-scroll">
+
+    <!-- Pantalla de Bienvenida para Desbloquear Audio -->
+    <div id="welcomeScreen">
+        <div class="flex flex-col items-center justify-center w-full px-6 max-w-md mx-auto h-[100dvh]" data-aos="zoom-in" data-aos-duration="1500">
+            <p class="font-playfair tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-3 text-oscuro font-semibold welcome-label-contrast">Mis 15 Años</p>
+            <h1 class="font-script text-6xl sm:text-7xl md:text-8xl mb-6 text-olivo font-normal leading-none shrink-0">Paula Victorio</h1>
+            <p class="font-montserrat text-oscuro/80 text-sm md:text-base mb-8 max-w-[280px] sm:max-w-sm mx-auto leading-relaxed">
+                "Hay días que marcan el comienzo de una nueva etapa. Hoy celebramos con alegría un momento único y muy especial."
+            </p>
+            <div class="w-full flex justify-center items-center mt-2 shrink-0">
+                <button id="btnOpen" class="flex items-center justify-center gap-3 px-8 md:px-12 btn-olive py-4 rounded-full font-semibold tracking-widest uppercase text-xs md:text-sm shadow-xl">
+                    <i class="fas fa-envelope-open text-lg"></i> Abrir Invitación
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element (Intentando autoplay) -->
+    <!-- Nota: Los navegadores modernos bloquean el autoplay de audio con sonido si no hay interacción previa del usuario. -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/sound/sonidoP.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Music Button -->
+    <button id="musicToggle" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-olivo text-white rounded-full flex items-center justify-center text-xl shadow-2xl floating-music transition-transform">
+        <i id="musicIcon" class="fas fa-play pl-1"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-[100dvh] min-h-[500px] flex flex-col items-center justify-center text-center text-crema px-6 overflow-hidden">
+        <!-- iOS Fix para imagen de fondo (bypass de background-attachment: fixed) -->
+        <div class="absolute inset-0 w-full h-full -z-20 pointer-events-none">
+            <!-- Utilizamos fixed sobre la imagen directamente para simular el parallax sin romper Webkit iOS -->
+            <div class="w-full h-full bg-[#F8DDE3]"></div>
+        </div>
+        
+        <!-- Gradientes para asegurar lectura del texto -->
+        <div class="absolute inset-0 bg-gradient-to-t from-olivo/60 via-[#5A4549]/20 to-[#5A4549]/50 -z-10 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#FCEDEF] via-transparent to-transparent opacity-90 -z-10 pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col items-center mt-auto mb-auto" data-aos="zoom-in" data-aos-duration="1500">
+            <p class="font-playfair tracking-[0.3em] uppercase text-xs md:text-base mb-6 text-oscuro font-semibold drop-shadow-md hero-label-contrast">Mis 15 Años</p>
+            <h1 class="font-script text-7xl md:text-9xl mb-4 font-normal tracking-wide drop-shadow-lg">Paula Victorio</h1>
+            <div class="w-24 h-[1px] bg-olivo my-6"></div>
+            <p class="font-montserrat tracking-[0.2em] font-light text-base md:text-xl uppercase drop-shadow-md gold-title hero-date-contrast">15 de septiembre de 2026</p>
+        </div>
+        
+        <div class="absolute bottom-10 z-10 animate-bounce">
+            <i class="fas fa-chevron-down text-olivo text-2xl opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- Narrative Section -->
+    <section class="py-24 px-6 md:px-20 text-center max-w-4xl mx-auto" data-aos="fade-up">
+        <i class="fas fa-leaf text-olivo text-3xl mb-8 opacity-80"></i>
+        <p class="font-playfair italic text-2xl md:text-3xl text-oscuro leading-relaxed font-light">
+           Hace 15 años, nuestras vidas se llenaron de amor con la llegada de una hermosa niña, un regalo que hoy celebramos con alegría. <br class="hidden md:block">
+        </p>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="py-16 px-6 bg-[#FCEDEF]" data-aos="fade-up">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-playfair text-3xl md:text-4xl text-center gold-title mb-10">Momentos para recordar</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-3 rounded-3xl">
+                    <img src="assets/img/foto1.jpg" alt="Momento especial de Paula Victorio" class="w-full aspect-[4/3] object-cover rounded-2xl">
+                </div>
+                <div class="glass-card p-3 rounded-3xl">
+                    <img src="assets/img/foto2.jpeg" alt="Recuerdo especial de Paula Victorio" class="w-full aspect-[4/3] object-cover rounded-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="py-16 bg-olivo/5 relative" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="font-playfair text-3xl md:text-4xl text-center gold-title mb-12">Faltan</h2>
+            
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                <!-- Days -->
+                <div class="flex flex-col items-center justify-center glass-card w-20 h-24 md:w-32 md:h-32 rounded-2xl">
+                    <span id="days" class="font-playfair font-bold text-3xl md:text-5xl countdown-number">00</span>
+                    <span class="text-xs md:text-sm font-medium tracking-widest uppercase text-oscuro/60 mt-2">Días</span>
+                </div>
+                <!-- Hours -->
+                <div class="flex flex-col items-center justify-center glass-card w-20 h-24 md:w-32 md:h-32 rounded-2xl">
+                    <span id="hours" class="font-playfair font-bold text-3xl md:text-5xl countdown-number">00</span>
+                    <span class="text-xs md:text-sm font-medium tracking-widest uppercase text-oscuro/60 mt-2">Hrs</span>
+                </div>
+                <!-- Minutes -->
+                <div class="flex flex-col items-center justify-center glass-card w-20 h-24 md:w-32 md:h-32 rounded-2xl">
+                    <span id="minutes" class="font-playfair font-bold text-3xl md:text-5xl countdown-number">00</span>
+                    <span class="text-xs md:text-sm font-medium tracking-widest uppercase text-oscuro/60 mt-2">Min</span>
+                </div>
+                <!-- Seconds -->
+                <div class="flex flex-col items-center justify-center glass-card w-20 h-24 md:w-32 md:h-32 rounded-2xl">
+                    <span id="seconds" class="font-playfair font-bold text-3xl md:text-5xl countdown-number">00</span>
+                    <span class="text-xs md:text-sm font-medium tracking-widest uppercase text-oscuro/60 mt-2">Seg</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Family Section -->
+    <section class="py-24 px-6 max-w-5xl mx-auto" data-aos="fade-up">
+        <div class="text-center mb-16">
+            <i class="fas fa-hands-holding-circle text-olivo text-4xl mb-6 opacity-80"></i>
+            <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-4">Con la bendición de Dios y mis padres</h2>
+            <div class="w-16 h-[1px] bg-olivo mx-auto"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 text-center">
+            <!-- Padres -->
+            <div class="glass-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="font-montserrat tracking-[0.2em] text-sm uppercase text-oscuro mb-6 font-semibold">Mis Padres</h3>
+                <p class="font-playfair text-2xl text-oscuro mb-2">Feliciano Victorio idalgo</p>
+                <p class="font-playfair text-2xl text-oscuro">Paola Jacobo leon</p>
+            </div>
+            
+            <!-- Padrinos -->
+            <div class="glass-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="font-montserrat tracking-[0.2em] text-sm uppercase text-oscuro mb-6 font-semibold">Mis Padrinos</h3>
+                <p class="font-playfair text-2xl text-oscuro mb-2">Juan Jose Aldana</p>
+                <p class="font-playfair text-2xl text-oscuro">Ana Teresa Velasco </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logistics Section -->
+    <section class="py-24 px-6 bg-olivo/5">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-4">Dónde y Cuándo</h2>
+                <div class="w-16 h-[1px] bg-olivo mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Ceremonia -->
+                <div class="glass-card p-10 rounded-3xl text-center flex flex-col items-center justify-between shadow-xl" data-aos="fade-right">
+                    <div class="w-20 h-20 rounded-full bg-olivo flex items-center justify-center mb-6 shadow-md text-crema">
+                        <i class="fas fa-church text-3xl"></i>
+                    </div>
+                    <h3 class="font-playfair text-3xl text-oscuro mb-2">Ceremonia Religiosa</h3>
+                    <p class="font-montserrat font-bold text-oscuro tracking-wider mb-4 text-lg">11:30 a.m.</p>
+                    <p class="text-oscuro/80 mb-8 leading-relaxed">
+                        CATEDRAL<br>
+                        
+                    </p>
+                    <a href="https://www.google.com/maps/place/Ciudad+Guzm%C3%A1n+Cathedral/@19.7037132,-103.4631011,17z/data=!3m1!4b1!4m6!3m5!1s0x842f86bcc97d0293:0x92f4df7b50f84412!8m2!3d19.7037132!4d-103.4631011!16s%2Fg%2F1q59fmw20?entry=ttu&g_ep=EgoyMDI0MDgyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-olive px-6 py-3 rounded-full font-semibold text-sm">
+                        <i class="fas fa-map-marker-alt text-lg"></i> Ver en Mapa
+                    </a>
+                </div>
+
+                <!-- Recepcion -->
+                <div class="glass-card p-10 rounded-3xl text-center flex flex-col items-center justify-between shadow-xl" data-aos="fade-left">
+                    <div class="w-20 h-20 rounded-full bg-olivo flex items-center justify-center mb-6 shadow-md text-crema">
+                        <i class="fas fa-glass-cheers text-3xl"></i>
+                    </div>
+                    <h3 class="font-playfair text-3xl text-oscuro mb-2">Recepción</h3>
+                    <p class="font-montserrat font-bold text-oscuro tracking-wider mb-4 text-lg">3:00 p.m.</p>
+                    <p class="text-oscuro/80 mb-8 leading-relaxed">
+                         salon de eventos
+                        Quinta Marina<br>
+                        CIUDAD GUZMAN JALISCO
+                    </p>
+                    <a href="https://www.google.com/maps/place/La+Quinta+Marina/@19.6785292,-103.4638336,17z/data=!3m1!4b1!4m6!3m5!1s0x842f86886571cc91:0x93da49a161b64d20!8m2!3d19.6785292!4d-103.4638336!16s%2Fg%2F1hc5y8drx?entry=ttu&g_ep=EgoyMDI0MDgyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-olive px-6 py-3 rounded-full font-semibold text-sm">
+                        <i class="fas fa-map-marker-alt text-lg"></i> Ver en Mapa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extra Info Section -->
+    <section class="py-24 px-6 max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-12">Detalles Importantes</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Regalo -->
+            <div class="flex flex-col items-center bg-[#FFF9F7]/70 p-6 rounded-2xl border border-olivo/30 shadow-sm">
+                <i class="fas fa-envelope-open-text text-3xl text-olivo mb-4"></i>
+                <h4 class="font-montserrat font-bold uppercase tracking-wider text-sm mb-2 text-oscuro">Lluvia de Sobres</h4>
+                <p class="text-oscuro/70 text-sm">El mejor regalo es tu presencia, pero si deseas tener un detalle conmigo, habrá un buzón en la recepción.</p>
+            </div>
+
+            <!-- Tonalidades -->
+            <div class="flex flex-col items-center bg-[#FFF9F7]/70 p-6 rounded-2xl border border-olivo/30 shadow-sm">
+                <i class="fas fa-palette text-3xl text-olivo mb-4"></i>
+                <h4 class="font-montserrat font-bold uppercase tracking-wider text-sm mb-2 text-oscuro">Tonalidades rosas pasteles reservadas para la quinceañera</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp RSVP Section -->
+    <section class="py-24 px-6 relative" data-aos="fade-up">
+        <div class="max-w-3xl mx-auto glass-card p-10 md:p-16 rounded-3xl text-center border-t-4 border-t-olivo">
+            <i class="fab fa-whatsapp text-5xl text-olivo mb-6"></i>
+            <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-4">Confirmación de Asistencia</h2>
+            <p class="font-montserrat text-oscuro/80 mb-8 max-w-lg mx-auto leading-relaxed">
+                Por favor, da clic en el botón de abajo para enviarme un mensaje por WhatsApp y poder confirmar tu valiosa asistencia.
+            </p>
+            
+            <!-- Link a WhatsApp: Cambia el '1234567890' por el número real con código de país (ej. 521234567890) -->
+            <a href="https://wa.me/523418860382?text=¡Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV%20años%20de%20Paula.%20" 
+               target="_blank" 
+               class="inline-flex items-center justify-center gap-3 bg-[#B97887] text-white px-8 py-4 rounded-full font-bold tracking-wider hover:bg-[#D9A6B0] transition-all hover:-translate-y-1">
+                <i class="fab fa-whatsapp text-2xl"></i>
+                CONFIRMAR ASISTENCIA
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-olivo text-crema py-16 text-center" data-aos="fade-up">
+        <h2 class="font-script text-6xl mb-4 font-normal gold-title footer-name-contrast">PAULA</h2>
+        <div class="w-12 h-[1px] bg-olivo/70 mx-auto my-6"></div>
+        <p class="font-montserrat tracking-[0.2em] font-light text-sm opacity-90 uppercase footer-message-contrast">¡Te espero para celebrar!</p>
+    </footer>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Inicializar AOS (Animaciones al hacer scroll)
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // -------------------------
+        // LÓGICA DE AUDIO (Autoplay & Botón)
+        // -------------------------
+        const audio = document.getElementById('bgMusic');
+        const toggleBtn = document.getElementById('musicToggle');
+        const icon = document.getElementById('musicIcon');
+        
+        let isPlaying = false;
+        let fadeInterval;
+
+        audio.volume = 0; // Iniciar en 0 para el fade in
+
+        // Función central para reproducir
+        const playMusic = () => {
+            if (isPlaying) return; // Si ya está sonando, no hacer nada
+
+            audio.play().then(() => {
+                isPlaying = true;
+                icon.classList.remove('fa-play', 'pl-1');
+                icon.classList.add('fa-pause');
+                toggleBtn.classList.add('pulse-ring');
+                
+                let vol = 0;
+                clearInterval(fadeInterval);
+                audio.volume = 0;
+                
+                // Fade-in de 0 a 0.5 (50% de volumen)
+                fadeInterval = setInterval(() => {
+                    if (vol < 0.5) {
+                        vol += 0.0166;
+                        audio.volume = Math.min(vol, 0.5);
+                    } else {
+                        clearInterval(fadeInterval);
+                    }
+                }, 50);
+                
+                // Remover listeners globales una vez que logró reproducirse
+                document.body.removeEventListener('click', playMusicAnywhere);
+                document.body.removeEventListener('touchstart', playMusicAnywhere);
+                
+            }).catch(error => {
+                console.log("Autoplay bloqueado. Esperando interacción.");
+            });
+        };
+
+        // Función para pausar
+        const pauseMusic = () => {
+            if (!isPlaying) return;
+            audio.pause();
+            isPlaying = false;
+            icon.classList.remove('fa-pause');
+            icon.classList.add('fa-play', 'pl-1');
+            toggleBtn.classList.remove('pulse-ring');
+        };
+
+        // Listener del botón flotante
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evitar que dispare el listener del body
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                playMusic();
+            }
+        });
+
+        // Wrapper para el evento en cualquier parte del body
+        const playMusicAnywhere = () => {
+            if (!isPlaying) {
+                playMusic();
+            }
+        };
+
+        // Escuchar el botón de "Abrir Invitación" para desbloquear audio y mostrar página
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const btnOpen = document.getElementById('btnOpen');
+        
+        btnOpen.addEventListener('click', () => {
+            // 1. Quitar el bloqueo de scroll
+            document.body.classList.remove('no-scroll');
+            // 2. Desvanecer la pantalla de bienvenida
+            welcomeScreen.classList.add('welcome-hidden');
+            // 3. Comenzar la música (con fade in de 50%)
+            playMusic();
+        });
+
+        // -------------------------
+        // LÓGICA DEL COUNTDOWN
+        // -------------------------
+          // Fecha objetivo: 15 de Septiembre de 2026 a las 11:30:00
+              const countDownDate = new Date(2026, 8, 15, 11, 30, 0).getTime();
+
+    const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("days").innerHTML = "00";
+            document.getElementById("hours").innerHTML = "00";
+            document.getElementById("minutes").innerHTML = "00";
+            document.getElementById("seconds").innerHTML = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+        document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+        document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+        document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+
+    }, 1000);
+    </script>
+</body>
+</html>
