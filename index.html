@@ -40,6 +40,18 @@
     </script>
 
     <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #FFF9F7; }
@@ -48,7 +60,305 @@
         body {
             background-color: #FFF9F7;
             color: #5A4549;
+            width: 100%;
+            min-width: 0;
+            min-height: 100%;
             overflow-x: hidden;
+        }
+
+        @supports (overflow: clip) {
+            html,
+            body {
+                overflow-x: clip;
+            }
+        }
+
+        section,
+        header,
+        footer {
+            width: 100%;
+            min-width: 0;
+            overflow-x: clip;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button,
+        a {
+            max-width: 100%;
+        }
+
+        #welcomeScreen > div {
+            min-height: 100svh;
+            min-height: 100dvh;
+        }
+
+        #welcomeScreen h1,
+        header h1 {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        header h1 {
+            font-size: clamp(3.75rem, 16vw, 9rem);
+            line-height: .95;
+        }
+
+        header > div.relative {
+            width: min(100%, 62rem);
+            padding-inline: .75rem;
+        }
+
+        .responsive-section-inner {
+            width: min(100%, 80rem);
+            margin-inline: auto;
+        }
+
+        .responsive-copy {
+            max-width: 52rem;
+            margin-inline: auto;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: clamp(.5rem, 2vw, 2rem);
+        }
+
+        .countdown-grid > div {
+            width: 100%;
+            min-width: 0;
+            min-height: clamp(5.5rem, 16vw, 8rem);
+            height: auto;
+            padding: .75rem .35rem;
+        }
+
+        .countdown-grid span {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        .responsive-card {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .hero-bg {
+            animation: hero-breathe 18s ease-in-out infinite alternate;
+            transform: scale(1.04);
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        @keyframes hero-breathe {
+            from { transform: scale(1.04); }
+            to { transform: scale(1.1); }
+        }
+
+        .hero-reveal {
+            opacity: 0;
+            transform: translateY(1rem);
+            animation: hero-reveal-in 900ms cubic-bezier(.22, .61, .36, 1) forwards;
+        }
+
+        .no-scroll .hero-reveal {
+            animation: none;
+        }
+
+        .hero-reveal-name {
+            transform: translateY(1.25rem) scale(.97);
+            animation-delay: 180ms;
+        }
+
+        .hero-reveal-line {
+            transform: scaleX(.35);
+            transform-origin: center;
+            animation-delay: 360ms;
+        }
+
+        .hero-reveal-date {
+            animation-delay: 500ms;
+        }
+
+        @keyframes hero-reveal-in {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .petals {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .petal {
+            position: absolute;
+            width: .55rem;
+            height: .8rem;
+            border-radius: 70% 30% 70% 30%;
+            background: rgba(217, 166, 176, .46);
+            opacity: 0;
+            animation: petal-drift 15s linear infinite;
+        }
+
+        .petal:nth-child(1) { left: 14%; animation-delay: 1s; }
+        .petal:nth-child(2) { left: 48%; animation-delay: 6s; animation-duration: 18s; }
+        .petal:nth-child(3) { left: 76%; animation-delay: 3s; animation-duration: 17s; }
+        .petal:nth-child(4) { left: 88%; animation-delay: 10s; animation-duration: 20s; }
+
+        @keyframes petal-drift {
+            0% { opacity: 0; transform: translate3d(0, -10vh, 0) rotate(0deg); }
+            12% { opacity: .7; }
+            75% { opacity: .45; }
+            100% { opacity: 0; transform: translate3d(1.5rem, 105vh, 0) rotate(120deg); }
+        }
+
+        .glass-card {
+            transition: transform 500ms ease, box-shadow 500ms ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-.3rem);
+            box-shadow: 0 14px 34px rgba(90, 60, 60, .16), 0 1px 0 rgba(201, 162, 74, .2);
+        }
+
+        .gallery-image {
+            transition: transform 700ms ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.015);
+        }
+
+        .decorative-icon {
+            animation: icon-float 4s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        @keyframes icon-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-.25rem); }
+        }
+
+        .countdown-number.countdown-tick {
+            animation: countdown-tick 450ms ease-out;
+        }
+
+        @keyframes countdown-tick {
+            0% { opacity: .55; transform: translateY(.15rem); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-gold,
+        .btn-olive,
+        #btnOpen,
+        #musicToggle {
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease, color 300ms ease;
+        }
+
+        @media (hover: none) {
+            .glass-card:hover,
+            .gallery-image:hover {
+                transform: none;
+            }
+
+            .btn-gold:active,
+            .btn-olive:active,
+            #btnOpen:active,
+            #musicToggle:active {
+                transform: scale(.97);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .hero-bg,
+            .petal,
+            .floating-music,
+            .decorative-icon,
+            .animate-bounce {
+                animation: none !important;
+            }
+
+            .hero-reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            #welcomeScreen > div {
+                padding-inline: 1rem;
+            }
+
+            #welcomeScreen h1 {
+                font-size: clamp(3.25rem, 17vw, 4.5rem);
+            }
+
+            .countdown-grid {
+                gap: .45rem;
+            }
+
+            .countdown-grid > div {
+                padding-inline: .2rem;
+            }
+        }
+
+        @media (max-width: 340px) {
+            .countdown-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                max-width: 15rem;
+                margin-inline: auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            header {
+                min-height: 100svh;
+                min-height: 100dvh;
+                height: auto;
+            }
+
+            .mobile-section-padding {
+                padding-block: clamp(3.5rem, 12vw, 6rem);
+                padding-inline: clamp(1rem, 5vw, 1.5rem);
+            }
+
+            .mobile-card-padding {
+                padding: clamp(1.25rem, 5vw, 2.5rem);
+            }
+
+            .mobile-title {
+                font-size: clamp(1.8rem, 7vw, 2.25rem);
+                line-height: 1.2;
+                overflow-wrap: anywhere;
+            }
+
+            .mobile-button {
+                width: 100%;
+                padding-inline: 1rem;
+                white-space: normal;
+            }
         }
 
         /* El hero-bg tradicional falla en iOS debido a background-attachment: fixed. 
@@ -210,7 +520,7 @@
                 "Hay días que marcan el comienzo de una nueva etapa. Hoy celebramos con alegría un momento único y muy especial."
             </p>
             <div class="w-full flex justify-center items-center mt-2 shrink-0">
-                <button id="btnOpen" class="flex items-center justify-center gap-3 px-8 md:px-12 btn-olive py-4 rounded-full font-semibold tracking-widest uppercase text-xs md:text-sm shadow-xl active:scale-95 transition-transform duration-300">
+                <button id="btnOpen" class="mobile-button flex items-center justify-center gap-3 px-8 md:px-12 btn-olive py-4 rounded-full font-semibold tracking-widest uppercase text-xs md:text-sm shadow-xl active:scale-95 transition-transform duration-300">
                     <i class="fas fa-envelope-open text-lg"></i> Abrir Invitación
                 </button>
             </div>
@@ -233,7 +543,7 @@
         <!-- iOS Fix para imagen de fondo (bypass de background-attachment: fixed) -->
         <div class="absolute inset-0 w-full h-full -z-20 pointer-events-none">
             <!-- Utilizamos fixed sobre la imagen directamente para simular el parallax sin romper Webkit iOS -->
-            <div class="w-full h-full bg-[#F8DDE3]"></div>
+            <div class="hero-bg w-full h-full bg-[#F8DDE3]"></div>
         </div>
         
         <!-- Gradientes para asegurar lectura del texto -->
@@ -241,10 +551,17 @@
         <div class="absolute inset-0 bg-gradient-to-t from-[#FCEDEF] via-transparent to-transparent opacity-90 -z-10 pointer-events-none"></div>
         
         <div class="relative z-10 flex flex-col items-center mt-auto mb-auto" data-aos="zoom-in" data-aos-duration="1500">
-            <p class="font-playfair tracking-[0.3em] uppercase text-xs md:text-base mb-6 text-oscuro font-semibold drop-shadow-md hero-label-contrast">Mis 15 Años</p>
-            <h1 class="font-script text-7xl md:text-9xl mb-4 font-normal tracking-wide drop-shadow-lg">Paula Victorio</h1>
-            <div class="w-24 h-[1px] bg-olivo my-6"></div>
-            <p class="font-montserrat tracking-[0.2em] font-light text-base md:text-xl uppercase drop-shadow-md gold-title hero-date-contrast">15 de septiembre de 2026</p>
+            <p class="hero-reveal font-playfair tracking-[0.3em] uppercase text-xs md:text-base mb-6 text-oscuro font-semibold drop-shadow-md hero-label-contrast">Mis 15 Años</p>
+            <h1 class="hero-reveal hero-reveal-name font-script text-7xl md:text-9xl mb-4 font-normal tracking-wide drop-shadow-lg">Paula Victorio</h1>
+            <div class="hero-reveal hero-reveal-line w-24 h-[1px] bg-olivo my-6"></div>
+            <p class="hero-reveal hero-reveal-date font-montserrat tracking-[0.2em] font-light text-base md:text-xl uppercase drop-shadow-md gold-title hero-date-contrast">15 de septiembre de 2026</p>
+        </div>
+
+        <div class="petals" aria-hidden="true">
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
+            <span class="petal"></span>
         </div>
         
         <div class="absolute bottom-10 z-10 animate-bounce">
@@ -253,23 +570,23 @@
     </header>
 
     <!-- Narrative Section -->
-    <section class="py-24 px-6 md:px-20 text-center max-w-4xl mx-auto" data-aos="fade-up">
-        <i class="fas fa-leaf text-olivo text-3xl mb-8 opacity-80"></i>
-        <p class="font-playfair italic text-2xl md:text-3xl text-oscuro leading-relaxed font-light">
+    <section class="mobile-section-padding py-24 px-6 md:px-20 text-center" data-aos="fade-up">
+        <i class="decorative-icon fas fa-leaf text-olivo text-3xl mb-8 opacity-80"></i>
+        <p class="responsive-copy font-playfair italic text-2xl md:text-3xl text-oscuro leading-relaxed font-light">
            Hace 15 años, nuestras vidas se llenaron de amor con la llegada de una hermosa niña, un regalo que hoy celebramos con alegría. <br class="hidden md:block">
         </p>
     </section>
 
     <!-- Photo Gallery Section -->
-    <section class="py-16 px-6 bg-[#FCEDEF]" data-aos="fade-up">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="font-playfair text-3xl md:text-4xl text-center gold-title mb-10">Momentos para recordar</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-3 rounded-3xl">
-                    <img src="assets/img/foto1.jpg" alt="Momento especial de Paula Victorio" class="w-full aspect-[4/3] object-cover rounded-2xl">
+    <section class="mobile-section-padding py-16 px-6 bg-[#FCEDEF]" data-aos="fade-up">
+        <div class="responsive-section-inner">
+            <h2 class="mobile-title font-playfair text-3xl md:text-4xl text-center gold-title mb-10">Momentos para recordar</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-card p-3 rounded-3xl responsive-card">
+                    <img src="assets/img/foto1.jpg" alt="Momento especial de Paula Victorio" class="gallery-image w-full h-auto object-contain rounded-2xl" data-aos="zoom-in" data-aos-duration="900">
                 </div>
-                <div class="glass-card p-3 rounded-3xl">
-                    <img src="assets/img/foto2.jpeg" alt="Recuerdo especial de Paula Victorio" class="w-full aspect-[4/3] object-cover rounded-2xl">
+                <div class="glass-card p-3 rounded-3xl responsive-card">
+                    <img src="assets/img/foto2.jpeg" alt="Recuerdo especial de Paula Victorio" class="gallery-image w-full h-auto object-contain rounded-2xl" data-aos="zoom-in" data-aos-duration="900" data-aos-delay="100">
                 </div>
             </div>
         </div>
@@ -280,7 +597,7 @@
         <div class="max-w-4xl mx-auto px-6">
             <h2 class="font-playfair text-3xl md:text-4xl text-center gold-title mb-12">Faltan</h2>
             
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+            <div class="countdown-grid">
                 <!-- Days -->
                 <div class="flex flex-col items-center justify-center glass-card w-20 h-24 md:w-32 md:h-32 rounded-2xl">
                     <span id="days" class="font-playfair font-bold text-3xl md:text-5xl countdown-number">00</span>
@@ -306,42 +623,44 @@
     </section>
 
     <!-- Family Section -->
-    <section class="py-24 px-6 max-w-5xl mx-auto" data-aos="fade-up">
+    <section class="mobile-section-padding py-24 px-6" data-aos="fade-up">
+        <div class="responsive-section-inner">
         <div class="text-center mb-16">
-            <i class="fas fa-hands-holding-circle text-olivo text-4xl mb-6 opacity-80"></i>
-            <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-4">Con la bendición de Dios y mis padres</h2>
+            <i class="decorative-icon fas fa-hands-holding-circle text-olivo text-4xl mb-6 opacity-80"></i>
+            <h2 class="mobile-title font-playfair text-3xl md:text-4xl gold-title mb-4">Con la bendición de Dios y mis padres</h2>
             <div class="w-16 h-[1px] bg-olivo mx-auto"></div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-12 text-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
             <!-- Padres -->
-            <div class="glass-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card mobile-card-padding p-10 rounded-3xl responsive-card" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="font-montserrat tracking-[0.2em] text-sm uppercase text-oscuro mb-6 font-semibold">Mis Padres</h3>
                 <p class="font-playfair text-2xl text-oscuro mb-2">Feliciano Victorio idalgo</p>
                 <p class="font-playfair text-2xl text-oscuro">Paola Jacobo leon</p>
             </div>
             
             <!-- Padrinos -->
-            <div class="glass-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
+            <div class="glass-card mobile-card-padding p-10 rounded-3xl responsive-card" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="font-montserrat tracking-[0.2em] text-sm uppercase text-oscuro mb-6 font-semibold">Mis Padrinos</h3>
                 <p class="font-playfair text-2xl text-oscuro mb-2">Juan Jose Aldana</p>
                 <p class="font-playfair text-2xl text-oscuro">Ana Teresa Velasco </p>
             </div>
         </div>
+        </div>
     </section>
 
     <!-- Logistics Section -->
-    <section class="py-24 px-6 bg-olivo/5">
-        <div class="max-w-5xl mx-auto">
+    <section class="mobile-section-padding py-24 px-6 bg-olivo/5">
+        <div class="responsive-section-inner">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-4">Dónde y Cuándo</h2>
                 <div class="w-16 h-[1px] bg-olivo mx-auto"></div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <!-- Ceremonia -->
-                <div class="glass-card p-10 rounded-3xl text-center flex flex-col items-center justify-between shadow-xl" data-aos="fade-right">
-                    <div class="w-20 h-20 rounded-full bg-olivo flex items-center justify-center mb-6 shadow-md text-crema">
+                <div class="glass-card mobile-card-padding p-10 rounded-3xl text-center flex flex-col items-center justify-between shadow-xl responsive-card" data-aos="fade-right">
+                    <div class="decorative-icon w-20 h-20 rounded-full bg-olivo flex items-center justify-center mb-6 shadow-md text-crema">
                         <i class="fas fa-church text-3xl"></i>
                     </div>
                     <h3 class="font-playfair text-3xl text-oscuro mb-2">Ceremonia Religiosa</h3>
@@ -356,8 +675,8 @@
                 </div>
 
                 <!-- Recepcion -->
-                <div class="glass-card p-10 rounded-3xl text-center flex flex-col items-center justify-between shadow-xl" data-aos="fade-left">
-                    <div class="w-20 h-20 rounded-full bg-olivo flex items-center justify-center mb-6 shadow-md text-crema">
+                <div class="glass-card mobile-card-padding p-10 rounded-3xl text-center flex flex-col items-center justify-between shadow-xl responsive-card" data-aos="fade-left">
+                    <div class="decorative-icon w-20 h-20 rounded-full bg-olivo flex items-center justify-center mb-6 shadow-md text-crema">
                         <i class="fas fa-glass-cheers text-3xl"></i>
                     </div>
                     <h3 class="font-playfair text-3xl text-oscuro mb-2">Recepción</h3>
@@ -376,30 +695,32 @@
     </section>
 
     <!-- Extra Info Section -->
-    <section class="py-24 px-6 max-w-4xl mx-auto text-center" data-aos="fade-up">
-        <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-12">Detalles Importantes</h2>
+    <section class="mobile-section-padding py-24 px-6 text-center" data-aos="fade-up">
+        <div class="responsive-section-inner">
+        <h2 class="mobile-title font-playfair text-3xl md:text-4xl gold-title mb-12">Detalles Importantes</h2>
         
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Regalo -->
-            <div class="flex flex-col items-center bg-[#FFF9F7]/70 p-6 rounded-2xl border border-olivo/30 shadow-sm">
-                <i class="fas fa-envelope-open-text text-3xl text-olivo mb-4"></i>
+            <div class="flex flex-col items-center bg-[#FFF9F7]/70 p-6 rounded-2xl border border-olivo/30 shadow-sm responsive-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="decorative-icon fas fa-envelope-open-text text-3xl text-olivo mb-4"></i>
                 <h4 class="font-montserrat font-bold uppercase tracking-wider text-sm mb-2 text-oscuro">Lluvia de Sobres</h4>
                 <p class="text-oscuro/70 text-sm">El mejor regalo es tu presencia, pero si deseas tener un detalle conmigo, habrá un buzón en la recepción.</p>
             </div>
 
             <!-- Tonalidades -->
-            <div class="flex flex-col items-center bg-[#FFF9F7]/70 p-6 rounded-2xl border border-olivo/30 shadow-sm">
-                <i class="fas fa-palette text-3xl text-olivo mb-4"></i>
+            <div class="flex flex-col items-center bg-[#FFF9F7]/70 p-6 rounded-2xl border border-olivo/30 shadow-sm responsive-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="decorative-icon fas fa-palette text-3xl text-olivo mb-4"></i>
                 <h4 class="font-montserrat font-bold uppercase tracking-wider text-sm mb-2 text-oscuro">Tonalidades rosas pasteles reservadas para la quinceañera</h4>
             </div>
+        </div>
         </div>
     </section>
 
     <!-- WhatsApp RSVP Section -->
-    <section class="py-24 px-6 relative" data-aos="fade-up">
-        <div class="max-w-3xl mx-auto glass-card p-10 md:p-16 rounded-3xl text-center border-t-4 border-t-olivo">
-            <i class="fab fa-whatsapp text-5xl text-olivo mb-6"></i>
-            <h2 class="font-playfair text-3xl md:text-4xl gold-title mb-4">Confirmación de Asistencia</h2>
+    <section class="mobile-section-padding py-24 px-6 relative" data-aos="fade-up">
+        <div class="max-w-3xl mx-auto glass-card mobile-card-padding p-10 md:p-16 rounded-3xl text-center border-t-4 border-t-olivo responsive-card">
+            <i class="decorative-icon fab fa-whatsapp text-5xl text-olivo mb-6"></i>
+            <h2 class="mobile-title font-playfair text-3xl md:text-4xl gold-title mb-4">Confirmación de Asistencia</h2>
             <p class="font-montserrat text-oscuro/80 mb-8 max-w-lg mx-auto leading-relaxed">
                 Por favor, da clic en el botón de abajo para enviarme un mensaje por WhatsApp y poder confirmar tu valiosa asistencia.
             </p>
@@ -407,7 +728,7 @@
             <!-- Link a WhatsApp: Cambia el '1234567890' por el número real con código de país (ej. 521234567890) -->
             <a href="https://wa.me/523418860382?text=¡Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV%20años%20de%20Paula.%20" 
                target="_blank" 
-               class="inline-flex items-center justify-center gap-3 bg-[#B97887] text-white px-8 py-4 rounded-full font-bold tracking-wider hover:bg-[#D9A6B0] transition-all hover:-translate-y-1 shadow-lg shadow-[#B97887]/30">
+               class="mobile-button inline-flex items-center justify-center gap-3 bg-[#B97887] text-white px-8 py-4 rounded-full font-bold tracking-wider hover:bg-[#D9A6B0] transition-all hover:-translate-y-1 shadow-lg shadow-[#B97887]/30">
                 <i class="fab fa-whatsapp text-2xl"></i>
                 CONFIRMAR ASISTENCIA
             </a>
@@ -542,10 +863,21 @@
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
-        document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
-        document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
-        document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+        const updateCountdownNumber = (id, value) => {
+            const element = document.getElementById(id);
+            const nextValue = value.toString().padStart(2, '0');
+
+            if (element.textContent !== nextValue) {
+                element.textContent = nextValue;
+                element.classList.remove('countdown-tick');
+                requestAnimationFrame(() => element.classList.add('countdown-tick'));
+            }
+        };
+
+        updateCountdownNumber('days', days);
+        updateCountdownNumber('hours', hours);
+        updateCountdownNumber('minutes', minutes);
+        updateCountdownNumber('seconds', seconds);
 
     }, 1000);
     </script>
